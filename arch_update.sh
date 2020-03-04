@@ -58,11 +58,6 @@ function log() { # ( message, color )
 	LOGLINES+=("$s")
 }
 
-function mailResult() { # ( )
-	IFS=$'\n'
-	echo "${LOGLINES[*]}" >>/var/log/arch_update.log
-}
-
 function main() { # ( )
 	log "Starting arch_update on $(hostname): $(feature "dry-run" $DRYRUN), $(feature "reboot" $REBOOT), $(feature "service-restart" $RESSVC)"
 
@@ -150,6 +145,11 @@ function main() { # ( )
 	success "Everything finished"
 }
 
+function sendResult() { # ( )
+	IFS=$'\n'
+	echo "${LOGLINES[*]}" >>/var/log/arch_update.log
+}
+
 function success() { # ( message )
 	local msg="$@"
 	log "$msg" "${COLOR_GREEN}"
@@ -183,5 +183,5 @@ while getopts ":nrs" o; do
 done
 shift $((OPTIND - 1))
 
-trap mailResult EXIT
+trap sendResult EXIT
 main
