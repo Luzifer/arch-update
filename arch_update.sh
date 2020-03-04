@@ -165,6 +165,9 @@ while getopts ":nrs" o; do
 		;;
 	*)
 		echo "Usage: $0 [-nrs]" >&2
+		echo "    -n  Dry-Run: Do nothing except looking for updates" >&2
+		echo "    -r  Reboot: In case packages flagged for reboot are updated, reboot after update" >&2
+		echo "    -s  Services Restart: Restart all systemd services matching updated package names" >&2
 		exit 1
 		;;
 	esac
