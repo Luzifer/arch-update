@@ -22,6 +22,10 @@ fi
 # Load defaults from defaults file
 [ -f /etc/default/arch_update ] && source /etc/default/arch_update
 
+function checktool() { # ( command )
+	which "$1" >/dev/null 2>&1 && return 0 || return 1
+}
+
 function error() { # ( message )
 	local msg="$@"
 	log "$msg" "${COLOR_RED}"
@@ -61,6 +65,11 @@ function mailResult() { # ( )
 
 function main() { # ( )
 	log "Starting arch_update on $(hostname): $(feature "dry-run" $DRYRUN), $(feature "reboot" $REBOOT), $(feature "service-restart" $RESSVC)"
+
+	checktool checkupdates || {
+		error "Missing tool 'checkupdates': Need to install package pacman-contrib"
+		exit 1
+	}
 
 	# Collect packages to be updated
 	log "Collecting packages..."
