@@ -1,0 +1,7 @@
+[Unit]
+Description=Execute arch-updates
+
+[Service]
+Type=oneshot
+
+ExecStart=/usr/bin/arch_update

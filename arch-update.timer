@@ -1,0 +1,9 @@
+[Unit]
+Description=Execute arch-updates
+
+[Timer]
+OnCalendar=04:00
+RandomizedDelaySec=1800
+
+[Install]
+WantedBy=timers.target
