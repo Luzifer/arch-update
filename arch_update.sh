@@ -55,7 +55,7 @@ function log() { # ( message, color )
 	local color="${2:-${COLOR_PLAIN}}"
 	s="[$(date)] $1"
 	echo -e "${color}${s}${COLOR_PLAIN}" >&2
-	LOGLINES+=("$s")
+	LOGLINES+=("$(echo "$s" | sed -E "s/\\\033\[[^m]*m//g")")
 }
 
 function main() { # ( )
