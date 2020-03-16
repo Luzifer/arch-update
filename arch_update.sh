@@ -125,7 +125,8 @@ function main() { # ( )
 		if [ $REBOOT -eq 1 ]; then
 			info "Reboot will be executed in 1 minute"
 			shutdown -r +1 # Give the script enough time to finish and queue reboot
-			exit 0         # Do not execute more of this script
+			info "Reboot scheduled, ending script now"
+			exit 0 # Do not execute more of this script
 		else
 			warn "Reboot is strongly suggested but auto-reboot is disabled"
 			date +%s >/tmp/arch_update_needs_reboot
