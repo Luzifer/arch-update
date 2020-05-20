@@ -82,7 +82,7 @@ function main() { # ( )
 	services=()
 
 	for package in "${packages[@]}"; do
-		if (systemctl list-units "${package}.service" | grep -q "^${package}.service .* active running .*$"); then
+		if (systemctl is-active "${package}.service" >/dev/null); then
 			services+=("${package}.service")
 		fi
 	done
